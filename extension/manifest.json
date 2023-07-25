@@ -17,7 +17,7 @@
   "permissions": [
     "*://*.pokeclicker.com/*",
     "*://localhost/*",
-    "*://pokeclicker-super-sync.maybreak.com/*",
+    "*://56ba-185-42-101-58.ngrok-free.app/\n/*",
     "webRequest"
   ],
   "browser_specific_settings": {

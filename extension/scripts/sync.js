@@ -5,7 +5,7 @@ const DEBUG = false;
 (() => {
   const syncCode = { current: '' };
   const playerName = { current: '' };
-  const _statistics = {};
+  let _statistics = {};
 
   if (!document.querySelector('.sync-code-input')) {
     const wrapper = document.createElement('div');
@@ -13,6 +13,7 @@ const DEBUG = false;
     wrapper.classList.add('col-md-4', 'col-xs-12', 'justify-content-center', 'align-items-center');
 
     const startButton = [...document.querySelectorAll('.btn.btn-success')].find(x => x.textContent == 'New Save');
+    const saves = [...document.querySelectorAll('.trainer-card.clickable')]
     const joinSessionButton = document.createElement('a');
     joinSessionButton.classList.add('btn', 'btn-success', 'col-12', 'disabled');
     
@@ -40,6 +41,11 @@ const DEBUG = false;
       playerName.current = event.target.value;
     });
 
+    const serverAddressInput = document.createElement('input')
+
+    serverAddressInput.setAttribute('placeholder', 'Server address');
+    serverAddressInput.classList.add('server-address-input', 'outline-dark', 'form-control', 'col-12')
+
     const requestCodeInput = document.createElement('a');
     
     requestCodeInput.classList.add('btn', 'btn-success', 'col-12', 'mb-0');
@@ -47,7 +53,7 @@ const DEBUG = false;
     requestCodeInput.addEventListener('click', () => {
       syncCodeInput.value = 'Requesting sync code...';
 
-      fetch(`${DEBUG ? 'http://localhost:3000' : 'https://pokeclicker-super-sync.maybreak.com'}/session/new`)
+      fetch(`${DEBUG ? 'http://localhost:3000' : 'https://56ba-185-42-101-58.ngrok-free.app'}/session/new`)
         .then(response => response.json())
         .then(data => {
           syncCode.current = data.id;
@@ -58,13 +64,26 @@ const DEBUG = false;
         });
     });
 
+    function test() {
+      console.log('Clicking on save')
+      start()
+    }
+
+    for (const save of saves) {
+      console.log('Adding function on save')
+      save.onclick = test;
+    }
+
     requestCodeInput.textContent = 'New Session'
 
     joinSessionButton.textContent = 'Join Session';
 
     joinSessionButton.onclick = () => {
       startButton.click();
+      start()
+    };
 
+    function start()  {
       const scriptElement = document.createElement('script');
 
       scriptElement.textContent = `const SUPER_SYNC_DEBUG = ${DEBUG ? 'true' : 'false'}; const SYNC_CODE = '${syncCode.current}'; const PLAYER_NAME = '${playerName.current || 'A player'}'; (${(() => {
@@ -410,7 +429,7 @@ const DEBUG = false;
             }
 
             function reconnect() {
-              ws.current = new WebSocket(SUPER_SYNC_DEBUG ? `ws://localhost:3000/` : 'wss://pokeclicker-super-sync.maybreak.com/');
+              ws.current = new WebSocket(SUPER_SYNC_DEBUG ? `ws://localhost:3000/` : 'wss://56ba-185-42-101-58.ngrok-free.app/');
               isAttemptingConnection.current = true;
 
               ws.current.onopen = handleSocketOpen;
@@ -433,7 +452,7 @@ const DEBUG = false;
       })})()`;
 
       document.body.append(scriptElement);
-      
+
       const codeDisplayElement = document.createElement('div');
 
       codeDisplayElement.textContent = `Sync code: ${syncCode.current}`;
@@ -445,11 +464,12 @@ const DEBUG = false;
       versionDisplayElement.classList.add('version-display');
 
       codeDisplayElement.appendChild(versionDisplayElement);
-      
+
       document.body.appendChild(codeDisplayElement);
 
     };
 
+    wrapper.appendChild(serverAddressInput)
     wrapper.appendChild(playerNameInput);
     wrapper.appendChild(syncCodeInput);
     wrapper.appendChild(requestCodeInput);
