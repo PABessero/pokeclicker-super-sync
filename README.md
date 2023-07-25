@@ -44,14 +44,10 @@ now you're gamin' baby
 
 # Français
 ## pokeclicker-super-sync
+C'est quoi Pokeclicker Super Sync ?
+c'est une extension navigateur qui permet de synchroniser une partie de la progression entreux plusieurs joueurs
 
-et si vous pouviez jouer à pokeclicker mais aussi quelqu'un d'autre pouvait jouer à pokeclicker et que vous jouiez tous les deux à pokeclicker ensemble ?
-
-haha jk.
-
-sauf si?
-
-synchronise actuellement :
+Synchronisation actuellement :
 - pokémon attrapé (y compris les chromatique)
 - badge d'arène 
 - éléments tenus / objet du professeur Chen (pas de synchronisation de la progression des objets tenus / Objet du professeur Chen entre deux niveaux d'un objet)
