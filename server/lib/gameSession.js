@@ -1,5 +1,5 @@
 const LOBBY_CODE_CHARACTER_SET = 'ABCDEFGHJKMNPQRSTUVWXYZ123456789';
-class GameSession {
+export class GameSession {
   constructor() {
     this.id = [...new Array(6)].map(() => LOBBY_CODE_CHARACTER_SET[Math.floor(Math.random() * LOBBY_CODE_CHARACTER_SET.length)]).join('');
     this.clients = [];
@@ -136,7 +136,3 @@ class GameSession {
     this.lastUpdate = new Date();
   }
 }
-
-module.exports = {
-  GameSession
-};

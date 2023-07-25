@@ -1,13 +1,15 @@
-var express = require('express');
-var cors = require('cors');
-const { GameSession } = require('./gameSession');
+import express from 'express'
+import cors from 'cors';
+// import chalk from 'chalk';
+import {GameSession} from "./gameSession.js";
+import expressWS from 'express-ws'
 
 const ROOM_EXPIRY_CHECK_MS = 1000 * 60 * 10; // 10 minutes
 const ROOM_EXPIRY_TIMEOUT_MS = 1000 * 60 * 60 * 8; // 8 hours
 
 var app = express();
 
-require('express-ws')(app);
+expressWS(app);
 
 const rooms = {};
 
@@ -138,4 +140,6 @@ app.ws('/', ws => {
   // ws.send(`New connection established from ${ws.`);
 });
 
-app.listen(3000);
+const listener = app.listen(3000, () => {
+  console.log(`Started server on ${listener.address().port}`)
+});
