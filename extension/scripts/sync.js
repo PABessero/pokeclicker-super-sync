@@ -351,6 +351,21 @@ const DEBUG = false;
                   break;
 
                 case 'initialSync':
+                  App.game.party.caughtPokemon.forEach(pokemon => {
+                    const id = pokemon.id;
+                    const shiny = pokemon.shiny;
+                    sendMessage('catch', {id, shiny})
+                  })
+                    
+                  App.game.keyItems.forEach(item => {
+                    const id = item.name;
+                    if (item.isUnlocked()) {
+                      sendMessage('keyItem', {id})
+                    }
+                  })
+                    
+                  
+                    
                   data.payload.pokemon.forEach(({ id, shiny }) => {
                     if (!App.game.party.alreadyCaughtPokemon(id, shiny)) {
                       App.game.party.gainPokemonById(id, shiny, true);
