@@ -56,11 +56,15 @@ synchronise actuellement :
 - badge d'arène 
 - éléments tenus / objet du professeur Chen (pas de synchronisation de la progression des objets tenus / Objet du professeur Chen entre deux niveaux d'un objet)
 
-remarque : ceci est destiné au speedrun en coopération et ne fonctionne qu'avec de nouveaux fichiers de sauvegarde. (Bientôt pour tout type d'utilisation)
+Note : ceci est destiné au speedrun en coopération et ne fonctionne qu'avec de nouveaux fichiers de sauvegarde. (Bientôt pour tout type d'utilisation)
 
 ###Installation
 
 téléchargez le fichier .zip des dernières versions juste là -->
+
+Puis décompresser le fichier .zip dans un dossier temporaire que vous aurais créer vous-même
+
+####Firefox
 
 dans firefox, allez dans "Modules complémentaires et thèmes" dans le menu en haut à droite.
 
@@ -72,6 +76,17 @@ sélectionnez le .xpi que vous avez téléchargé à partir des versions.
 théoriquement cela fonctionne aussi sur chrome mais je ne l'ai pas testé.
 
 vous devrez peut-être désactiver la signature d'application, car le plugin a été désactivé par mozilla et ils ne me diront pas pourquoi. https://support.mozilla.org/en-US/kb/add-on-signing-in-firefox
+
+####Google Chrome
+Aller dans Google, dans l'onglet "Extentions" 
+
+Activé le "mode développeur" en haut a droite de l'écran
+
+puis cliqué sur le bouton "Charger l'extension non empaquetée"
+
+une fenètre vas s'ouvrir puis selectionnier le dossier temporaire ou vous avais decompressier le .zip et validé
+
+maintenant normalement vous verrez l'extention dans la liste d'extention de votre navigateur 
 
 ### Utilisation [WIP]
 
