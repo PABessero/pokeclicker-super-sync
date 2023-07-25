@@ -107,7 +107,6 @@ export class GameSession {
           if (!this.statistics[key][k]) this.statistics[key][k] = 0;
           this.statistics[key][k] += v;
         });
-        return;
       }
     });
 

@@ -1,5 +1,7 @@
 console.log('Pokeclicker Super Sync enabled.');
 
+let SERVER_ADDRESS = 'fe04-2a02-8428-80f8-8101-75ae-ca50-746b-c627.ngrok-free.app'
+
 const DEBUG = false;
 
 (() => {
@@ -46,6 +48,13 @@ const DEBUG = false;
     serverAddressInput.setAttribute('placeholder', 'Server address');
     serverAddressInput.classList.add('server-address-input', 'outline-dark', 'form-control', 'col-12')
 
+    serverAddressInput.addEventListener('focusout', event => {
+      if (event.target.value.trim() !== '') {
+        console.log(`Setting address to ${event.target.value}`)
+        SERVER_ADDRESS = event.target.value
+      }
+    })
+
     const requestCodeInput = document.createElement('a');
     
     requestCodeInput.classList.add('btn', 'btn-success', 'col-12', 'mb-0');
@@ -53,7 +62,7 @@ const DEBUG = false;
     requestCodeInput.addEventListener('click', () => {
       syncCodeInput.value = 'Requesting sync code...';
 
-      fetch(`${DEBUG ? 'http://localhost:3000' : 'https://56ba-185-42-101-58.ngrok-free.app'}/session/new`)
+      fetch(`${DEBUG ? 'http://localhost:3000' : 'https://' + SERVER_ADDRESS}/session/new`)
         .then(response => response.json())
         .then(data => {
           syncCode.current = data.id;
@@ -86,7 +95,7 @@ const DEBUG = false;
     function start()  {
       const scriptElement = document.createElement('script');
 
-      scriptElement.textContent = `const SUPER_SYNC_DEBUG = ${DEBUG ? 'true' : 'false'}; const SYNC_CODE = '${syncCode.current}'; const PLAYER_NAME = '${playerName.current || 'A player'}'; (${(() => {
+      scriptElement.textContent = `const SUPER_SYNC_DEBUG = ${DEBUG ? 'true' : 'false'}; const SYNC_CODE = '${syncCode.current}'; const PLAYER_NAME = '${playerName.current || 'A player'}'; const SERVER_ADDRESS = '${SERVER_ADDRESS}'; (${(() => {
         if (SUPER_SYNC_DEBUG) {
           window.grantDebugResources = () => {
             [...new Array(25)].map((k, i) => App.game.party.gainPokemonById(i + 151));
@@ -444,7 +453,7 @@ const DEBUG = false;
             }
 
             function reconnect() {
-              ws.current = new WebSocket(SUPER_SYNC_DEBUG ? `ws://localhost:3000/` : 'wss://56ba-185-42-101-58.ngrok-free.app/');
+              ws.current = new WebSocket(SUPER_SYNC_DEBUG ? `ws://localhost:3000/` : 'wss://' + SERVER_ADDRESS + '/');
               isAttemptingConnection.current = true;
 
               ws.current.onopen = handleSocketOpen;
