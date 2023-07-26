@@ -341,6 +341,14 @@ const DEBUG = false;
                     });
                   }
                   break;
+                  
+                case 'questLine':
+                  App.game.quests.questLines()[data.payload.lineID].quests()[data.payload.questID].complete();
+                    
+                  window.Notifier.notify({
+                    message: `${data.payload.username} completed part ${data.payload.questID + 1} of the quest ${App.game.quests.questLines()[data.payload.lineID].name}`
+                  });
+                  break;
 
                 case 'saveTick':
                   // Apply the differences
@@ -424,6 +432,7 @@ const DEBUG = false;
                     }
                     
                     data.payload.questLines.forEach(questLine => {
+                      console.log(questLine);
                       if (!App.game.quests.questLines()[questLine.questLineID].state === 2){
                         App.game.quests.questLines()[questLine.questLineID].quests()[questLine.questID].complete(true)
                       }
