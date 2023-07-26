@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Pokeclicker Super Sync!",
   "version": "1.0.5",
   "description": "Sync Pokeclicker progress between multiple players.",
