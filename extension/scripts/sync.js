@@ -14,7 +14,7 @@ const DEBUG = false;
 
     wrapper.classList.add('col-md-4', 'col-xs-12', 'justify-content-center', 'align-items-center');
 
-    const startButton = [...document.querySelectorAll('.btn.btn-success')].find(x => x.textContent == 'New Save');
+    const startButton = [...document.querySelectorAll('.btn.btn-success')].find(x => x.textContent === 'New Save');
     const saves = [...document.querySelectorAll('.trainer-card.clickable')]
     const joinSessionButton = document.createElement('a');
     joinSessionButton.classList.add('btn', 'btn-success', 'col-12', 'disabled');
@@ -343,11 +343,13 @@ const DEBUG = false;
                   break;
                   
                 case 'questLine':
-                  App.game.quests.questLines()[data.payload.lineID].quests()[data.payload.questID].complete();
-                    
-                  window.Notifier.notify({
-                    message: `${data.payload.username} completed part ${data.payload.questID + 1} of the quest ${App.game.quests.questLines()[data.payload.lineID].name}`
-                  });
+                  if (!App.game.quests.questLines()[data.payload.lineID].quests()[data.payload.questID].isCompleted()) {
+                    App.game.quests.questLines()[data.payload.lineID].quests()[data.payload.questID].complete();
+
+                    window.Notifier.notify({
+                      message: `${data.payload.username} completed part ${data.payload.questID + 1} of the quest ${App.game.quests.questLines()[data.payload.lineID].name}`
+                    });
+                  }
                   break;
 
                 case 'saveTick':
