@@ -40,6 +40,12 @@ app.get('/session/new', (req, res) => {
   res.json(newRoom);
 });
 
+app.get('/session/room/:room', (req, res) => {
+  const data = rooms[req.params.room]
+
+  res.json(data)
+})
+
 function sendMessage(ws, event, payload = {}) {
   ws?.send?.(JSON.stringify({ event, payload }));
 }
@@ -58,7 +64,7 @@ function usingRoom(ws, callback) {
   if (room) {
     callback(room)
   } else {
-    sendError('Game session does not exist.');
+    sendError(ws,'Game session does not exist.');
   }
 }
 
@@ -124,7 +130,7 @@ app.ws('/', ws => {
 
         case 'questLine':
           usingRoom(ws, room => {
-            room.addQuestLine(ws, data.payload.lineID, data.payload.questID);
+            room.addQuestLine(ws, data.payload.questLineID, data.payload.questID);
             console.log(`Completing quest ${data.payload.questID} for quest-line ${data.payload.questLineID}`)
           })
 
