@@ -181,6 +181,8 @@ const DEBUG = false;
                     sendMessage('keyItem', { keyItem });
                   }
                 });
+                
+                // injectMethodBefore(App.game.)
 
                 injectMethodBefore(Save, 'store', player => {
                   // only send the difference
@@ -366,7 +368,7 @@ const DEBUG = false;
                     sendMessage('catch', {id, shiny})
                   })
                     
-                  App.game.keyItems.forEach(item => {
+                  App.game.keyItems.itemList.forEach(item => {
                     const id = item.name;
                     if (item.isUnlocked()) {
                       sendMessage('keyItem', {id})
