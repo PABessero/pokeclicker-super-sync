@@ -182,7 +182,34 @@ const DEBUG = false;
                   }
                 });
                 
-                // injectMethodBefore(App.game.)
+                App.game.quests.questLines().forEach((questLine, questLineID) => {
+                  questLine.quests().forEach((quest, questID) => {
+                    if (quest.autoComplete) {
+                      injectMethodBefore(quest.autoCompleter, 'dispose', quest => {
+                        sendMessage('questLine', {
+                          questLineID,
+                          questID
+                      });
+                        console.log('Autocompleted quest')
+                      })
+                    }
+                    // console.log(`Questline ${questLineID} and Quest ${questID}`)
+                    injectMethodBefore(quest, 'complete', quest => {
+                      sendMessage('questLine', {
+                        questLineID,
+                        questID
+                      });
+                      console.log('Sending quest')
+                    })
+                  })
+                })
+                // for (let questLine of App.game.quests.questLines) {
+                //   for (let quest of questLine.quests()) {
+                //     injectMethodBefore(quest, 'complete', quest => {
+                //      
+                //     })
+                //   }
+                // }
 
                 injectMethodBefore(Save, 'store', player => {
                   // only send the difference
@@ -375,8 +402,6 @@ const DEBUG = false;
                     }
                   })
                     
-                  
-                    
                   data.payload.pokemon.forEach(({ id, shiny }) => {
                     if (!App.game.party.alreadyCaughtPokemon(id, shiny)) {
                       App.game.party.gainPokemonById(id, shiny, true);
@@ -397,6 +422,12 @@ const DEBUG = false;
                         player.starter(0);
                       }
                     }
+                    
+                    data.payload.questLines.forEach(questLine => {
+                      if (!App.game.quests.questLines()[questLine.questLineID].state === 2){
+                        App.game.quests.questLines()[questLine.questLineID].quests()[questLine.questID].complete(true)
+                      }
+                    })
                   });
 
                   // Handle our statistics

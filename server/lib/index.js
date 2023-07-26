@@ -124,7 +124,8 @@ app.ws('/', ws => {
 
         case 'questLine':
           usingRoom(ws, room => {
-            room.addQuestLine(ws, data.payload.lineID, data.payload.questID)
+            room.addQuestLine(ws, data.payload.lineID, data.payload.questID);
+            console.log(`Completing quest ${data.payload.questID} for quest-line ${data.payload.questLineID}`)
           })
 
           break;
