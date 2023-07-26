@@ -88,7 +88,7 @@ app.ws('/', ws => {
               key === 'clients' ? acc : { ...acc, [key]: value }
             ), {}))
           } else {
-            sendError('Game session does not exist.');
+            sendError(ws, 'Game session does not exist.');
           }
 
           break;
@@ -119,6 +119,13 @@ app.ws('/', ws => {
           usingRoom(ws, room => {
             room.addSaveData(ws, data.payload);
           });
+
+          break;
+
+        case 'questLine':
+          usingRoom(ws, room => {
+            room.addQuestLine(ws, data.payload.lineID, data.payload.questID)
+          })
 
           break;
         default:

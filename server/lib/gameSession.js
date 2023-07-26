@@ -6,6 +6,7 @@ export class GameSession {
     this.pokemon = [];
     this.badges = [];
     this.keyItems = [];
+    this.questLines = [];
     this.statistics = {};
     this.lastUpdate = new Date();
   }
@@ -69,6 +70,18 @@ export class GameSession {
     }
 
     this.refreshLastUpdate();
+  }
+
+  addQuestLine(ws, lineID, questID) {
+    if (this.questLines.indexOf({lineID, questID}) === -1) {
+      this.questLines.push({lineID, questID})
+
+      this.broadcast('questLine', {
+        username: this.getUsername(ws),
+        lineID,
+        questID
+      }, ws)
+    }
   }
   
   addSaveData(ws, data) {
