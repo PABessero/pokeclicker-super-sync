@@ -49,10 +49,8 @@ const DEBUG = false;
     serverAddressInput.classList.add('server-address-input', 'outline-dark', 'form-control', 'col-12')
 
     serverAddressInput.addEventListener('focusout', event => {
-      if (event.target.value.trim() !== '') {
-        console.log(`Setting address to ${event.target.value}`)
-        SERVER_ADDRESS = event.target.value
-      }
+      console.log(`Setting address to ${event.target.value}`)
+      SERVER_ADDRESS = event.target.value
     })
 
     const requestCodeInput = document.createElement('a');
