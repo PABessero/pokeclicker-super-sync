@@ -1,6 +1,6 @@
 console.log('Pokeclicker Super Sync enabled.');
 
-let SERVER_ADDRESS = 'fe04-2a02-8428-80f8-8101-75ae-ca50-746b-c627.ngrok-free.app'
+let SERVER_ADDRESS = ''
 
 const DEBUG = false;
 
@@ -75,7 +75,11 @@ const DEBUG = false;
 
     function test() {
       console.log('Clicking on save')
-      start()
+      if (SERVER_ADDRESS) {
+        start()
+      } else {
+        console.log('No server, starting single player')
+      }
     }
 
     for (const save of saves) {
