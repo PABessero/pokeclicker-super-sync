@@ -372,6 +372,9 @@ const DEBUG = false;
                         if (!_statistics[key][k]) _statistics[key][k] = 0;
                         _statistics[key][k] += value;
                       })
+                      
+                      console.log(key, value)
+                      
                       return;
                     }
                     // Object
@@ -387,6 +390,9 @@ const DEBUG = false;
                           });
                         });
                         return;
+                      } 
+                      if (key === 'dungeonsCleared') {
+                        console.log(Object.entries(value))
                       }
                       Object.entries(value).forEach(([k, v]) => {
                         if (!v) return;
