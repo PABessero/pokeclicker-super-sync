@@ -1,12 +1,18 @@
 console.log('Pokeclicker Super Sync enabled.');
 
 let SERVER_ADDRESS = localStorage.getItem('SERVER_ADDRESS') || ''
+let syncCode = { current: localStorage.getItem('SYNC_CODE') || '' };
+let playerName = { current: localStorage.getItem('PLAYER_NAME') || '' };
 
 const DEBUG = false;
 
 (() => {
-  const syncCode = { current: localStorage.getItem('SYNC_CODE') || '' };
-  const playerName = { current: localStorage.getItem('PLAYER_NAME') || '' };
+  // if (localStorage.getItem('SYNC_CODE') !== null) {
+  //   syncCode.current = localStorage.getItem('SYNC_CODE')
+  // }
+  // if (localStorage.getItem('PLAYER_NAME') !== null) {
+  //   playerName.current = localStorage.getItem('PLAYER_NAME')
+  // }
   let _statistics = {};
 
   if (!document.querySelector('.sync-code-input')) {
@@ -25,7 +31,7 @@ const DEBUG = false;
     syncCodeInput.setAttribute('placeholder', 'Online Sync Code');
     syncCodeInput.classList.add('sync-code-input', 'outline-dark', 'form-control', 'col-12');
 
-    syncCodeInput.addEventListener('keyup', event => {
+    syncCodeInput.addEventListener('focusout', event => {
       syncCode.current = event.target.value;
 
       if (syncCode.current.length === 6) {
@@ -41,7 +47,7 @@ const DEBUG = false;
     playerNameInput.setAttribute('placeholder', 'Username');
     playerNameInput.classList.add('outline-dark', 'form-control', 'col-12');
 
-    playerNameInput.addEventListener('keyup', event => {
+    playerNameInput.addEventListener('focusout', event => {
       playerName.current = event.target.value;
     });
 
@@ -98,6 +104,11 @@ const DEBUG = false;
     };
 
     function start()  {
+
+      localStorage.setItem('SERVER_ADDRESS', SERVER_ADDRESS)
+      localStorage.setItem('SYNC_CODE', syncCode.current)
+      localStorage.setItem('PLAYER_NAME', playerName.current)
+
       const scriptElement = document.createElement('script');
 
       scriptElement.textContent = `const SUPER_SYNC_DEBUG = ${DEBUG ? 'true' : 'false'}; const SYNC_CODE = '${syncCode.current}'; const PLAYER_NAME = '${playerName.current || 'A player'}'; const SERVER_ADDRESS = '${SERVER_ADDRESS}'; (${(() => {
@@ -141,10 +152,7 @@ const DEBUG = false;
               sendMessage('join', { username: PLAYER_NAME });
 
               console.log('Connected to sync server.'); 
-              
-              localStorage.setItem('SERVER_ADDRESS', SERVER_ADDRESS)
-              localStorage.setItem('SYNC_CODE', syncCode.current)
-              localStorage.setItem('PLAYER_NAME', playerName.current)
+
 
               heartbeatIntervalId.current = setInterval(() => sendMessage('heartbeat'), 1000);
 
