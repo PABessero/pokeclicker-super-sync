@@ -250,9 +250,9 @@ negotiator@0.6.2:
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
 node-json-db@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/node-json-db/-/node-json-db-2.2.0.tgz"
-  integrity sha512-GBuXPjItZ+XivMxR7bhSjVeXKiHZKRN/HbvqrwVemV6V5atcnIIZbg2J2vJHE6RYHydtPCJoUy05YaK4wQO0TA==
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/node-json-db/-/node-json-db-2.3.0.tgz"
+  integrity sha512-B8T+w4q6zXZ20YcfQINLSjMGgImRKzkvR0ShYYoNRdLxtMhVvbzaMBzNdEaRcCjilW/lKS+g9CwVXNoK5uTncw==
   dependencies:
     rwlock "^5.0.0"
 

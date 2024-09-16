@@ -1,12 +1,12 @@
 console.log('Pokeclicker Super Sync enabled.');
 
-let SERVER_ADDRESS = ''
+let SERVER_ADDRESS = localStorage.getItem('SERVER_ADDRESS') || ''
 
 const DEBUG = false;
 
 (() => {
-  const syncCode = { current: '' };
-  const playerName = { current: '' };
+  const syncCode = { current: localStorage.getItem('SYNC_CODE') || '' };
+  const playerName = { current: localStorage.getItem('PLAYER_NAME') || '' };
   let _statistics = {};
 
   if (!document.querySelector('.sync-code-input')) {
@@ -20,6 +20,7 @@ const DEBUG = false;
     joinSessionButton.classList.add('btn', 'btn-success', 'col-12', 'disabled');
     
     const syncCodeInput = document.createElement('input');
+    syncCodeInput.value = syncCode.current;
 
     syncCodeInput.setAttribute('placeholder', 'Online Sync Code');
     syncCodeInput.classList.add('sync-code-input', 'outline-dark', 'form-control', 'col-12');
@@ -35,6 +36,7 @@ const DEBUG = false;
     });
             
     const playerNameInput = document.createElement('input');
+    playerNameInput.value = playerName.current
 
     playerNameInput.setAttribute('placeholder', 'Username');
     playerNameInput.classList.add('outline-dark', 'form-control', 'col-12');
@@ -44,6 +46,7 @@ const DEBUG = false;
     });
 
     const serverAddressInput = document.createElement('input')
+    serverAddressInput.value = SERVER_ADDRESS
 
     serverAddressInput.setAttribute('placeholder', 'Server address');
     serverAddressInput.classList.add('server-address-input', 'outline-dark', 'form-control', 'col-12')
@@ -138,6 +141,10 @@ const DEBUG = false;
               sendMessage('join', { username: PLAYER_NAME });
 
               console.log('Connected to sync server.'); 
+              
+              localStorage.setItem('SERVER_ADDRESS', SERVER_ADDRESS)
+              localStorage.setItem('SYNC_CODE', syncCode.current)
+              localStorage.setItem('PLAYER_NAME', playerName.current)
 
               heartbeatIntervalId.current = setInterval(() => sendMessage('heartbeat'), 1000);
 
